@@ -16,10 +16,11 @@
     <div class="card">
       <div class="texto">
         <h1>
-          Programa computacional
+          Producto Integrador de Aprendizaje
         </h1>
-        <h2>Validar si la cadena es valida</h2>
-        <h4>Nombre: Jorge Jaziel Carreón Guajardo <br>Matrícula: 1734228</h4>
+        <h2>Cadena: bbb<sup>n</sup>a<sup>2n</sup>bb | n&ge;0</h2>
+        <h2>Equipo #7 <br>Problema #7</h2>
+        <br>
         <form action="">
           <input id="InputCadena" type="text" placeholder="Escribe la cadena que quieres verificar:">
           <button type="button" onclick="verificarCadena()">
@@ -40,8 +41,8 @@
 <script>
 
   const verificarCadena = () => {
-    a = 'aa'
-    b = 'bb';
+    a = 'a'
+    b = 'b';
     tamañoDeA = a.length;
     tamañoDeB = b.length;
 
@@ -51,41 +52,44 @@
 
     if (value.startsWith(b)) {
       validador++;
-      console.log("Inicia con B   " + validador)
+      console.log(1)
     }
 
     if (value.startsWith(b, tamañoDeB)) {
       validador++;
-      console.log("Continua Con la segunda B    " + validador)
+      console.log(2)
     }
     if (value.startsWith(b, tamañoDeB * 2)) {
       validador++;
-      console.log("continua con su tercera B que corresponde a B a la n   " + validador)
+      console.log(3)
+    }
+    if (value.endsWith(b, value.length - tamañoDeB)) {
+      validador++;
+      console.log(4)
+    }
+    if (value.endsWith(b)) {
+      validador++;
+      console.log(5)
     }
 
     var indicesDeB = [];
     var idx = value.indexOf(b, tamañoDeB * 2);
 
     while (idx != -1) {
-      if (value.indexOf(b, idx + 1) - idx > 2) {
-        console.log((value.indexOf(b, idx + 1) - idx > 2) + "   validacion rara")
+      if (value.indexOf(b, idx + 1) - idx > 1) {
         indicesDeB.push(idx);
-        console.log(idx)
         var aux = idx;
         idx = -1;
       } else {
         indicesDeB.push(idx);
-        console.log(idx)
         idx = value.indexOf(b, idx + tamañoDeB)
-        console.log(value.indexOf(b, idx + 1))
       }
     }
-    console.log(indicesDeB)
+    let auxiliarDeIndicesDeB = indicesDeB;
     var indicesDeA = [];
     var idx = value.indexOf(a);
-
     while (idx != -1) {
-      if (value.indexOf(a, idx + 1) - idx > 2) {
+      if (value.indexOf(a, idx + 1) - idx > 1) {
         indicesDeA.push(idx);
         var aux = idx;
         idx = -1;
@@ -94,23 +98,16 @@
         idx = value.indexOf(a, idx + tamañoDeA);
       }
     }
-    console.log(indicesDeA)
     if (indicesDeA.length == 0 && indicesDeB.length == 2) {
       validador++;
-      console.log("N es igual a 0   " + validador)
+      console.log(6)
     }
     if (indicesDeA.length / indicesDeB.length == 2) {
       validador++;
-      console.log("N esta correcta en 2n y b a la n   " + validador)
+      console.log(6)
     }
-
-    if (value.endsWith(b, value.length - tamañoDeB)) {
-      validador++;
-      console.log("la penultima b    " + validador)
-    }
-    if (value.endsWith(b)) {
-      validador++;
-      console.log("la ultima b   " + validador)
+    if (indicesDeA == 0 && validador == 6) {
+      validador = 8;
     }
 
     if (indicesDeA.length != 0) {
@@ -126,16 +123,24 @@
           idx = value.indexOf(b, idx + tamañoDeB);
         }
       }
-      console.log(indicesDeB)
 
       if (indicesDeB.length != 2) {
         validador--;
-        console.log("mas de dos b al final    " + validador)
+        console.log(5)
+      }
+    }
+    if (indicesDeA != 0) {
+      if (auxiliarDeIndicesDeB[auxiliarDeIndicesDeB.length - 1] + 1 == indicesDeA[0]) {
+        validador++;
+        console.log(7)
+      }
+      if (indicesDeA[indicesDeA.length - 1] + tamañoDeA == indicesDeB[0]) {
+        validador++;
+        console.log(8)
       }
     }
 
-
-    if (validador == 6) {
+    if (validador == 8) {
       var elem = document.getElementById('cadenaValida');
       elem.style.display = "block";
       var elem = document.getElementById('cadenaInvalida');
@@ -154,10 +159,9 @@
     margin: 0;
     margin-right: 0;
     padding: 0;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-color: rgba(199, 12, 12, 0.075);
+    background: rgb(131, 58, 180);
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+    ;
   }
 
   .contenedor {
@@ -172,10 +176,13 @@
     flex-direction: row;
     align-items: center;
     margin-top: 13%;
-    background-color: rgba(240, 248, 255, 0.507);
     padding: 60px;
-    border-radius: 20px;
-    box-shadow: 10px 5px 5px black;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(8.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
   }
 
   .animacion p {
@@ -208,24 +215,43 @@
     display: flex;
     flex-direction: column;
     height: 100px;
+    width: 100%;
     justify-content: space-evenly;
   }
 
   input {
-    border-radius: 30px;
-    border: 0;
+    border-radius: 10px;
+    border: 2px solid rgb(0, 0, 0);
     padding: 10px;
-    color: black;
-    font-size: 16px;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(0, 0, 0);
+    opacity: 1;
+    /* Firefox */
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: rgb(0, 0, 0);
+  }
+
+  ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: rgb(0, 0, 0);
   }
 
   button {
-    background-color: rgba(79, 77, 233, 0.671);
+    background-color: rgba(131, 58, 180, 1);
     border-radius: 30px;
     color: white;
     padding: 10px;
     margin-top: 30px;
-    font-size: 14px;
+    font-size: 18px;
     font-family: 'Fjalla One', sans-serif;
   }
 </style>
