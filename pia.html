@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+  <title>Programa computacional</title>
+</head>
+
+<body>
+  <div class="contenedor">
+    <div class="card">
+      <div class="texto">
+        <h1>
+          Programa computacional
+        </h1>
+        <h2>Validar si la cadena es valida</h2>
+        <h4>Nombre: Jorge Jaziel Carreón Guajardo <br>Matrícula: 1734228</h4>
+        <form action="">
+          <input id="InputCadena" type="text" placeholder="Escribe la cadena que quieres verificar:">
+          <button type="button" onclick="verificarCadena()">
+            Validar Cadena
+          </button>
+        </form>
+        <h3 id="cadenaValida" class="cadenaValida" style="display: none;">Cadena Valida</h3>
+        <h3 id="cadenaInvalida" class="cadenaInvalida" style="display: none;">Cadena invalida, intenta con otra</h3>
+      </div>
+      <div class="animacion">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_bniew9j6.json" background="transparent"
+          speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+
+  const verificarCadena = () => {
+    a = 'aa'
+    b = 'bb';
+    tamañoDeA = a.length;
+    tamañoDeB = b.length;
+
+    const input = document.getElementById("InputCadena");
+    const value = input.value;
+    let validador = 0;
+
+    if (value.startsWith(b)) {
+      validador++;
+      console.log("Inicia con B   " + validador)
+    }
+
+    if (value.startsWith(b, tamañoDeB)) {
+      validador++;
+      console.log("Continua Con la segunda B    " + validador)
+    }
+    if (value.startsWith(b, tamañoDeB * 2)) {
+      validador++;
+      console.log("continua con su tercera B que corresponde a B a la n   " + validador)
+    }
+
+    var indicesDeB = [];
+    var idx = value.indexOf(b, tamañoDeB * 2);
+
+    while (idx != -1) {
+      if (value.indexOf(b, idx + 1) - idx > 2) {
+        console.log((value.indexOf(b, idx + 1) - idx > 2) + "   validacion rara")
+        indicesDeB.push(idx);
+        console.log(idx)
+        var aux = idx;
+        idx = -1;
+      } else {
+        indicesDeB.push(idx);
+        console.log(idx)
+        idx = value.indexOf(b, idx + tamañoDeB)
+        console.log(value.indexOf(b, idx + 1))
+      }
+    }
+    console.log(indicesDeB)
+    var indicesDeA = [];
+    var idx = value.indexOf(a);
+
+    while (idx != -1) {
+      if (value.indexOf(a, idx + 1) - idx > 2) {
+        indicesDeA.push(idx);
+        var aux = idx;
+        idx = -1;
+      } else {
+        indicesDeA.push(idx);
+        idx = value.indexOf(a, idx + tamañoDeA);
+      }
+    }
+    console.log(indicesDeA)
+    if (indicesDeA.length == 0 && indicesDeB.length == 2) {
+      validador++;
+      console.log("N es igual a 0   " + validador)
+    }
+    if (indicesDeA.length / indicesDeB.length == 2) {
+      validador++;
+      console.log("N esta correcta en 2n y b a la n   " + validador)
+    }
+
+    if (value.endsWith(b, value.length - tamañoDeB)) {
+      validador++;
+      console.log("la penultima b    " + validador)
+    }
+    if (value.endsWith(b)) {
+      validador++;
+      console.log("la ultima b   " + validador)
+    }
+
+    if (indicesDeA.length != 0) {
+      var indicesDeB = [];
+      var idx = value.indexOf(b, value.lastIndexOf(a) + tamañoDeA);
+      while (idx != -1) {
+        if (value.indexOf(b, idx + 1) - idx > 2) {
+          indicesDeB.push(idx);
+          var aux = idx;
+          idx = -1;
+        } else {
+          indicesDeB.push(idx);
+          idx = value.indexOf(b, idx + tamañoDeB);
+        }
+      }
+      console.log(indicesDeB)
+
+      if (indicesDeB.length != 2) {
+        validador--;
+        console.log("mas de dos b al final    " + validador)
+      }
+    }
+
+
+    if (validador == 6) {
+      var elem = document.getElementById('cadenaValida');
+      elem.style.display = "block";
+      var elem = document.getElementById('cadenaInvalida');
+      elem.style.display = "none";
+    }
+    else {
+      var elem = document.getElementById('cadenaInvalida');
+      elem.style.display = "block";
+      var elem = document.getElementById('cadenaValida');
+      elem.style.display = "none";
+    }
+  }
+</script>
+<style>
+  body {
+    margin: 0;
+    margin-right: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: rgba(199, 12, 12, 0.075);
+  }
+
+  .contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 13%;
+    background-color: rgba(240, 248, 255, 0.507);
+    padding: 60px;
+    border-radius: 20px;
+    box-shadow: 10px 5px 5px black;
+  }
+
+  .animacion p {
+    text-align: center;
+  }
+
+  .texto h1 {
+    text-align: center;
+    margin: auto;
+    margin-bottom: 50px;
+    color: rgba(0, 0, 0, 0.712);
+    font-family: 'Fjalla One', sans-serif;
+  }
+
+  .texto h2,
+  h4,
+  h3 {
+    font-family: 'Fjalla One', sans-serif;
+    margin-bottom: 30px;
+  }
+
+  .cadenaInvalida,
+  .cadenaValida {
+    display: inline-flex;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .texto form {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: space-evenly;
+  }
+
+  input {
+    border-radius: 30px;
+    border: 0;
+    padding: 10px;
+    color: black;
+    font-size: 16px;
+  }
+
+  button {
+    background-color: rgba(79, 77, 233, 0.671);
+    border-radius: 30px;
+    color: white;
+    padding: 10px;
+    margin-top: 30px;
+    font-size: 14px;
+    font-family: 'Fjalla One', sans-serif;
+  }
+</style>
+
+</html>
